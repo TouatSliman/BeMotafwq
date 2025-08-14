@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -76,7 +76,7 @@ function AppStack() {
         component={Tabs}
         options={({ navigation }) => ({
           headerTitle: () => (
-            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#000' }}>
+            <Text style={{ fontSize: 12, fontWeight: 'light', color: '#000' }}>
               {new Date().getHours() < 12 ? 'صباح الخير' : 'مساء الخير'} {fname}
             </Text>
           ),

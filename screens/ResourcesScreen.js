@@ -2,77 +2,108 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinkLogoCard from 'components/LinkLogoCard';
 import { LinearGradient } from 'expo-linear-gradient';
+import GradientPngCard from '../components/GradientPngCard';
 
 const ResourcesScreen = () => {
-  const educationLevel = ' الثانوية';
+  const educationLevel = 'الثانية الثانوية';
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text style={styles.title}>إحصائيات الموارد</Text>
-        <LinearGradient
-          colors={['#5691c8', '#457fca']}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: 16,
-            width: '100%',
-            height: 200,
-            alignItems: 'center',
-            paddingHorizontal: 16,
-            borderRadius: 4,
-          }}>
-          <Text style={{ textAlign: 'right', width: '100%', fontWeight: 'bold', color: 'white' }}>
-            المرحلة الدراسية : {educationLevel}
-          </Text>
-        </LinearGradient>
+
+        <GradientPngCard
+          title=" الحقيبة "
+          titleSize={50}
+          description=""
+          imageSource={require('../assets/3d/school_bag.png')}
+          imageSize={230}
+          from="#FF5733"
+          to="#FFC300"
+          bctitle=" استكشف"
+          bcdescreption={`المصادر المتاحة لمستوى ${educationLevel}`}
+        />
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginBottom: 16,
+            marginVertical: 6,
           }}>
           <View
             style={{
-              backgroundColor: 'white',
+              backgroundColor: '#8ABB6C',
               padding: 8,
-              borderRadius: 4,
-              height: 80,
-              width: '30%',
-              justifyContent: 'flex-end',
+              borderRadius: 8,
+              height: 110,
+              width: 110,
+              justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>عدد الكتب</Text>
-            <Text>15</Text>
+            <Text style={{ fontWeight: 'light', fontSize: 14, textAlign: 'right' }}>
+              عدد الكتب المقروة بالكامل
+            </Text>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 30,
+                textAlign: 'center',
+                width: 100,
+                color: 'white',
+                textShadowColor: 'black',
+                textShadowOffset: { width: 1, height: 1 },
+                textShadowRadius: 1,
+              }}>
+              15
+            </Text>
           </View>
           <View
             style={{
-              backgroundColor: 'white',
+              backgroundColor: '#9ECAD6',
               padding: 8,
-              borderRadius: 4,
-              height: 80,
-              width: '30%',
-              justifyContent: 'flex-end',
+              borderRadius: 8,
+              height: 110,
+              width: 90,
+              justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>
-              عدد مقاطع الفيديو
+            <Text style={{ fontWeight: 'light', fontSize: 14, textAlign: 'right' }}>
+              المادة الاكثر تصفحا{' '}
             </Text>
-            <Text>10</Text>
+            <Text
+              style={{
+                fontWeight: 'light',
+                fontSize: 16,
+                textAlign: 'center',
+                width: 100,
+                color: 'white',
+                textShadowColor: 'black',
+                textShadowOffset: { width: 1, height: 1 },
+                textShadowRadius: 1,
+              }}>
+              الرياضيات
+            </Text>
           </View>
           <View
             style={{
-              backgroundColor: 'white',
+              backgroundColor: '#FFCB61',
               padding: 8,
-              borderRadius: 4,
-              height: 80,
-              width: '30%',
-              justifyContent: 'flex-end',
+              borderRadius: 8,
+              height: 110,
+              width: 140,
+              justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>
-              عدد الامتحانات
+            <Text style={{ fontWeight: 'light', fontSize: 14, textAlign: 'right' }}>
+              عدد الموارد التي تم فتحها
             </Text>
-            <Text>5</Text>
+            <Text style={{ fontWeight: 'light', fontSize: 10, textAlign: 'right', width: 100,color: 'white' , textShadowColor: 'black', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 1  }}>
+              5 هذا اليوم
+            </Text>
+            <Text style={{ fontWeight: 'light', fontSize: 10, textAlign: 'right', width: 100,color: 'white' , textShadowColor: 'black', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 1  }}>
+              20 هذا الاسبوع
+            </Text>
+            <Text style={{ fontWeight: 'light', fontSize: 10, textAlign: 'right', width: 100,color: 'white' , textShadowColor: 'black', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 1  }}>
+              100 هذا الشهر
+            </Text>
           </View>
         </View>
         <Text style={styles.title}>اختر من بين افضل المصادر</Text>
