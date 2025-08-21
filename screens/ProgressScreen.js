@@ -1,9 +1,10 @@
-import {View , Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import Streak from 'components/Streak';
 
 const ProgressScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Progress Screen</Text>
+      <Streak />
     </View>
   );
 };
@@ -11,12 +12,6 @@ const ProgressScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
 });
 

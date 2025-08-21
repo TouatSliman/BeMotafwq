@@ -1,65 +1,60 @@
 import React, { Component } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Alert,
-} from 'react-native';
+import { SafeAreaView, StyleSheet, View, Alert } from 'react-native';
 import TimeTableView, { genTimeBlock } from 'react-native-timetable';
 const events_data = [
   {
-    title: "رياضيات",
-    startTime: genTimeBlock("MON", 9),
-    endTime: genTimeBlock("MON", 10, 50),
-    location: "القسم 401",
+    title: 'رياضيات',
+    startTime: genTimeBlock('MON', 8, 30),
+    endTime: genTimeBlock('MON', 10),
+    location: 'القسم 401',
     extra_descriptions: ['أحمد'],
   },
   {
-    title: "رياضيات",
-    startTime: genTimeBlock("WED", 9),
-    endTime: genTimeBlock("WED", 10, 50),
-    location: "القسم 401",
+    title: 'رياضيات',
+    startTime: genTimeBlock('WED', 8, 30),
+    endTime: genTimeBlock('WED', 10),
+    location: 'القسم 401',
     extra_descriptions: ['أحمد'],
   },
   {
-    title: "فيزياء",
-    startTime: genTimeBlock("MON", 11),
-    endTime: genTimeBlock("MON", 12, 50),
-    location: "المختبر 201",
-    extra_descriptions: ["سارة"],
+    title: 'فيزياء',
+    startTime: genTimeBlock('MON', 10),
+    endTime: genTimeBlock('MON', 11, 30),
+    location: 'المختبر 201',
+    extra_descriptions: ['سارة'],
   },
   {
-    title: "فيزياء",
-    startTime: genTimeBlock("WED", 11),
-    endTime: genTimeBlock("WED", 12, 50),
-    location: "المختبر 201",
-    extra_descriptions: ["سارة"],
+    title: 'فيزياء',
+    startTime: genTimeBlock('WED', 11, 30),
+    endTime: genTimeBlock('WED', 13),
+    location: 'المختبر 201',
+    extra_descriptions: ['سارة'],
   },
   {
-    title: "اللغة الصينية",
-    startTime: genTimeBlock("TUE", 9),
-    endTime: genTimeBlock("TUE", 10, 50),
-    location: "القسم 402",
-    extra_descriptions: ["ذو الفقار"],
+    title: 'اللغة الصينية',
+    startTime: genTimeBlock('TUE', 8, 30),
+    endTime: genTimeBlock('TUE', 10),
+    location: 'القسم 402',
+    extra_descriptions: ['ذو الفقار'],
   },
   {
-    title: "العربية",
-    startTime: genTimeBlock("FRI", 9),
-    endTime: genTimeBlock("FRI", 10, 50),
-    location: "القسم 402",
-    extra_descriptions: ["أحمد"],
+    title: 'العربية',
+    startTime: genTimeBlock('FRI', 8, 30),
+    endTime: genTimeBlock('FRI', 10),
+    location: 'القسم 402',
+    extra_descriptions: ['أحمد'],
   },
   {
-    title: "اللغة الإنجليزية",
-    startTime: genTimeBlock("THU", 9),
-    endTime: genTimeBlock("THU", 10, 50),
-    location: "القسم 402",
+    title: 'اللغة الإنجليزية',
+    startTime: genTimeBlock('THU', 8,30),
+    endTime: genTimeBlock('THU', 10),
+    location: 'القسم 402',
   },
   {
-    title: "اللغة الإنجليزية",
-    startTime: genTimeBlock("FRI", 13, 30),
-    endTime: genTimeBlock("FRI", 14, 50),
-    location: "القسم 402",
+    title: 'اللغة الإنجليزية',
+    startTime: genTimeBlock('FRI', 14),
+    endTime: genTimeBlock('FRI', 15, 30),
+    location: 'القسم 402',
   },
 ];
 
@@ -75,12 +70,12 @@ export default class App extends Component {
   };
 
   onEventPress = (evt) => {
-    Alert.alert("onEventPress", JSON.stringify(evt));
+    Alert.alert('onEventPress', JSON.stringify(evt));
   };
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
           <TimeTableView
             scrollViewRef={this.scrollViewRef}
@@ -98,11 +93,11 @@ export default class App extends Component {
       </SafeAreaView>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: '#000'
+    backgroundColor: '#000',
   },
   container: {
     flex: 1,
