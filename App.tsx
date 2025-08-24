@@ -18,6 +18,7 @@ const Stack = createNativeStackNavigator();
 function Tabs() {
   return (
     <Tab.Navigator
+      initialRouteName="الرئيسية"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
@@ -121,7 +122,6 @@ function AppStack() {
 }
 
 export default function App() {
-
   return (
     <NavigationContainer>
       <AppStack />

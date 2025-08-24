@@ -1,7 +1,14 @@
 import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
 import GradientPngCard from '../components/GradientPngCard';
-import { useState, useEffect } from 'react';
 import DayCard from '../components/DayCard';
+import {
+  SlideDownFadeIn,
+  SlideUpFadeIn,
+  SlideRightFadeIn,
+  SlideLeftFadeIn,
+  FadeInOnly,
+} from 'components/SlideAnimations';
 
 const HomeScreen = () => {
   const [time, setTime] = useState('');
@@ -72,7 +79,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <SlideDownFadeIn>
         <GradientPngCard
           title={`${time}`}
           description="الاختبارات النهائية"
@@ -83,112 +90,124 @@ const HomeScreen = () => {
           bctitle="اقتباس اليوم"
           bcdescreption="“الصبر معطية يسير ببطء لكنه يوصل صاحبه لما يريد”"
         />
-      </View>
-      <View
-        style={{
-          marginVertical: 14,
-          flexDirection: 'row',
-          gap: 6,
-          justifyContent: 'center',
-          direction: 'rtl',
-        }}>
-        {Object.values(offsets).map((offset, index) => (
-          <DayCard
-            key={index}
-            num={offset.num}
-            baseDate={baseDate}
-            notification={offset.notification}
-          />
-        ))}
-      </View>
+      </SlideDownFadeIn>
+      <FadeInOnly>
+        <View
+          style={{
+            marginVertical: 14,
+            flexDirection: 'row',
+            gap: 6,
+            justifyContent: 'center',
+            direction: 'rtl',
+          }}>
+          {Object.values(offsets).map((offset, index) => (
+            <DayCard
+              key={index}
+              num={offset.num}
+              baseDate={baseDate}
+              notification={offset.notification}
+            />
+          ))}
+        </View>
+      </FadeInOnly>
       <View
         style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <GradientPngCard
-          width="48%"
-          height="300"
-          from="#1671e9ff"
-          to="#6edfdfff"
-          title={`الاهداف `}
-          list={goals}
-          titleSize={48}
-          imageSource={require('../assets/goal.png')}
-          imageSize={130}
-          bctitle="غير مكتمل"
-          bcdescreption="الحالة"
-        />
+        <SlideRightFadeIn>
+          <GradientPngCard
+            width="92%"
+            height="300"
+            from="#1671e9ff"
+            to="#6edfdfff"
+            title={`الاهداف `}
+            list={goals}
+            titleSize={48}
+            imageSource={require('../assets/goal.png')}
+            imageSize={130}
+            bctitle="غير مكتمل"
+            bcdescreption="الحالة"
+          />
+        </SlideRightFadeIn>
         <View
           style={{
             width: '48%',
             gap: 15,
           }}>
-          <ImageBackground
-            source={require('../assets/white_pointed_background.png')}
-            resizeMode="cover"
-            imageStyle={{ borderRadius: 8 }}
-            style={{
-              width: '100%',
-              height: 142.5,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 8,
-              overflow: 'hidden',
-            }}>
-            <View
+          <SlideLeftFadeIn>
+            <ImageBackground
+              source={require('../assets/white_pointed_background.png')}
+              resizeMode="cover"
+              imageStyle={{ borderRadius: 8 }}
               style={{
-                position: 'absolute',
-                height: 80,
-                width: 80,
+                width: '100%',
+                height: 142.5,
                 justifyContent: 'center',
                 alignItems: 'center',
-                shadowColor: '#000',
-                top: 10,
-                backgroundColor: '#ffffff',
-                borderWidth: 1,
-                borderColor: '#f9f9f9',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                borderRadius: 50,
+                borderRadius: 8,
+                overflow: 'hidden',
               }}>
-              <Image
-                source={require('../assets/fire.png')}
-                style={{ width: 30, height: 50, ...(daysStreak == 0 ? { tintColor: 'gray' } : {}) }}
-              />
-            </View>
-            <Text
-              style={{
-                fontSize: 42,
-                marginTop: 42,
-                textShadowColor: 'black', // border color
-                textShadowOffset: { width: 1, height: 1 },
-                textShadowRadius: 1,
-                color: '#000000ff',
-                elevation: 1,
-                fontWeight: 'bold',
-              }}>
-              {daysStreak}
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                color: '#000000ff',
-                textShadowColor: 'black',
-                textShadowOffset: { width: 1, height: 1 },
-                textShadowRadius: 1,
-              }}>
-              سلسلة الاسبوع
-            </Text>
-          </ImageBackground>
-          <GradientPngCard
-            height="142.5"
-            from="#a252ff"
-            to="#bb55ff99"
-            title="?"
-            description="سؤال اليوم"
-            imageSource={require('../assets/3d/creative_idea.png')}
-            imageSize={100}
-          />
+              <View
+                style={{
+                  position: 'absolute',
+                  height: 80,
+                  width: 80,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  shadowColor: '#000',
+                  top: 10,
+                  backgroundColor: '#ffffff',
+                  borderWidth: 1,
+                  borderColor: '#f9f9f9',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                  borderRadius: 50,
+                }}>
+                <Image
+                  source={require('../assets/fire.png')}
+                  style={{
+                    width: 30,
+                    height: 50,
+                    ...(daysStreak == 0 ? { tintColor: 'gray' } : {}),
+                  }}
+                />
+              </View>
+              <Text
+                style={{
+                  fontSize: 42,
+                  marginTop: 42,
+                  textShadowColor: 'black', // border color
+                  textShadowOffset: { width: 1, height: 1 },
+                  textShadowRadius: 1,
+                  color: '#000000ff',
+                  elevation: 1,
+                  fontWeight: 'bold',
+                }}>
+                {daysStreak}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: '#000000ff',
+                  textShadowColor: 'black',
+                  textShadowOffset: { width: 1, height: 1 },
+                  textShadowRadius: 1,
+                }}>
+                سلسلة الاسبوع
+              </Text>
+            </ImageBackground>
+          </SlideLeftFadeIn>
+          <SlideUpFadeIn>
+            <GradientPngCard
+              height="142.5"
+              from="#a252ff"
+              to="#bb55ff99"
+              title="?"
+              description="سؤال اليوم"
+              imageSource={require('../assets/3d/creative_idea.png')}
+              imageSize={100}
+            />
+          </SlideUpFadeIn>
         </View>
       </View>
     </View>
