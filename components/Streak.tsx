@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { useEffect, useRef } from 'react';
+import { Animated, View, Text, StyleSheet, ViewStyle } from 'react-native';
 
 const Days = [
-  { day: 'الاحد', streak: 0 },
-  { day: 'الاثنين', streak: 1 },
-  { day: 'الثلثاء', streak: 0 },
-  { day: 'الاربعاء', streak: 1 },
-  { day: 'الخميس' },
-  { day: 'الجمعة' },
-  { day: 'السبت' },
+  { day: 'الاحد', streak: null },
+  { day: 'الاثنين', streak: null },
+  { day: 'الثلثاء', streak: null },
+  { day: 'الاربعاء', streak: null },
+  { day: 'الخميس', streak: null },
+  { day: 'الجمعة', streak: null },
+  { day: 'السبت', streak: null },
 ];
 
 type DayBlock = {
@@ -18,20 +19,70 @@ type DayBlock = {
 };
 
 const DayBlock = ({ isToday = false, day, streak = null }: DayBlock) => {
+  const glowAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(glowAnim, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: false, // shadow/elevation can't use native driver
+        }),
+        Animated.timing(glowAnim, {
+          toValue: 0,
+          duration: 800,
+          useNativeDriver: false,
+        }),
+      ])
+    ).start();
+  }, []);
+
+  const animatedStyle: Animated.WithAnimatedObject<ViewStyle> = {
+    shadowRadius: glowAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [6, 14],
+    }),
+    shadowColor: '#0ff',
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: glowAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [6, 14],
+    }),
+  };
+
   return (
     <View style={{ justifyContent: 'center' }}>
-      <Text style={styles.dayText}>{day}</Text>
-      <View
+      <Text
+        style={[
+          styles.streakText,
+          streak === 0 && styles.streakTextRed,
+          streak !== 0 && streak !== 1 && styles.streakTextInactive,
+        ]}>
+        {day}
+      </Text>
+      <Animated.View
         style={[
           styles.dayBlock,
           isToday && styles.today,
-          streak === 1 && { backgroundColor: 'green' },
-          streak === 0 && { backgroundColor: 'red' },
+          isToday && animatedStyle,
+          streak === 1 && styles.neonGreen,
+          streak === 0 && styles.neonRed,
         ]}>
         {streak !== null && (
-          <Ionicons style={styles.streakText} name={streak === 1 ? 'checkmark' : 'close-outline'} />
+          <Ionicons
+            name={streak === 1 ? 'flame' : streak === 0 ? 'close' : 'ellipse-outline'}
+            size={32}
+            style={[
+              styles.iconBase,
+              streak === 1 && styles.iconGreen,
+              streak === 0 && styles.iconRed,
+              streak !== 0 && streak !== 1 && styles.iconInactive,
+            ]}
+          />
         )}
-      </View>
+      </Animated.View>
     </View>
   );
 };
@@ -52,7 +103,6 @@ const Streak = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     height: 70,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -65,29 +115,92 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   dayBlock: {
-    padding: 10,
-    height: 30,
-    width: 30,
-    borderRadius: 50,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    margin: 4,
+    backgroundColor: '#000', // default background
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  today: {
-    backgroundColor: '#ff6a00b9',
-  },
+
   dayText: {
     fontSize: 10,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 5,
   },
+  today: {
+    borderWidth: 3,
+    borderColor: '#0ff', // Neon cyan border
+    shadowColor: '#0ff', // Same cyan glow
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 12, // Strong glow radius
+    elevation: 12, // Android glow
+    backgroundColor: 'rgba(0, 255, 255, 0.15)', // Slight translucent cyan bg
+  },
+  neonGreen: {
+    backgroundColor: '#00ff00',
+    shadowColor: '#00ff00',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 10, // Android
+  },
+  neonRed: {
+    backgroundColor: '#ff0000',
+    shadowColor: '#ff0000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 10, // Android
+  },
   streakText: {
-    fontSize: 10,
-    color: '#6c757d',
+    color: '#00ff00', // Neon green text color (match neonGreen block)
+    fontWeight: 'bold',
+    fontSize: 12,
+    textShadowColor: '#00ff00', // Neon green shadow for glow
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8, // Bigger radius = softer glow
+    textAlign: 'center',
+  },
+  streakTextRed: {
+    color: '#ff0000',
+    fontWeight: 'bold',
+    fontSize: 12,
+    textShadowColor: '#ff0000',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
+    textAlign: 'center',
+  },
+  streakTextInactive: {
+    color: '#000', // dim gray text
+    textShadowColor: '#000',
+    opacity: 0.4, // subtle fade
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  iconBase: {
+    marginTop: 4,
+  },
+
+  iconGreen: {
+    color: '#fff',
+    textShadowColor: '#fff',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
+  },
+
+  iconRed: {
+    color: '#fff',
+    textShadowColor: '#fff',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
+  },
+  iconInactive: {
+    color: '#fff',
+    opacity: 0.4,
   },
 });
 export default Streak;
